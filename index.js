@@ -9,7 +9,7 @@ app.use(cors());
 const PORT = process.env.PORT || 8000;
 let id = 1;
 
-const transationDataBase = []
+let transationDataBase = []
 
 app.get('/', (req, res) => {
   res.status(200).json(transationDataBase);
@@ -20,6 +20,11 @@ app.post('/api/v1/transacao', (req, res) => {
   transation = {"id": id++, ...transation }
   transationDataBase.push(transation);
   res.status(201).send({"aceito": true});
+});
+
+app.delete('/api/v1/transacao/deleteall', (_req, res) => {
+  transationDataBase = []
+  res.status(200).send({"delete": true })
 });
 
 app.listen(PORT, () => {
